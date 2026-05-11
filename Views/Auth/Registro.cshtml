@@ -1,0 +1,35 @@
+@model NailsStudio.Models.ViewModels.RegistroViewModel
+
+<h2>Login</h2>
+
+<form asp-action="Registro" method="post">
+    @Html.AntiForgeryToken()
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div>
+        <label asp-for="NomeCompleto"></label>
+        <input asp-for="NomeCompleto" />
+        <span asp-validation-for="NomeCompleto" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Senha"></label>
+        <input asp-for="Senha" />
+        <span asp-validation-for="Senha" class="text-danger"></span>
+    </div>
+
+    <div>
+        <input asp-for="ConfirmarSenha" />
+        <label asp-for="ConfirmarSenha">Confirme sua senha</label>
+        <span asp-validation-for="ConfirmarSenha" class="text-danger"></span>
+    </div>
+
+    <button type="submit">Cadastrar</button>
+</form>
