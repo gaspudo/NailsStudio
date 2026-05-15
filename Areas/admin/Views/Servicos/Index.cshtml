@@ -1,0 +1,51 @@
+@model IEnumerable<NailsStudio.Models.Entities.Servico>
+
+    <h2>Serviços</h2>
+
+    @if (TempData["Sucesso"] != null) {
+        <div class="alert alert-success">@TempData["Sucesso"]</div>
+    }
+
+    <a asp-action="Criar"> Novo serviço</a>
+    <table>
+        <thead> 
+            <tr>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Duração</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var s in Model)
+        {
+            <tr>
+                <td>@s.Nome</td>
+                <td>R$ @s.Preco.ToString("F2")</td>
+                <td>@s.DuracaoMinutos min</td>
+                <td>@(s.Ativo ? "Ativo" : "Inativo")</td>
+                <td>
+                    <a asp-action="Editar" asp-route-id="@s.Id">Editar</a>
+
+                    @if (s.Ativo)
+                    {
+                        <form asp-action="Desativar" method="post" style="display:inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@s.Id" />
+                            <button type="submit">Desativar</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-action="Reativar" method="post" style="display:inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@s.Id" />
+                            <button type="submit">Ativar</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>

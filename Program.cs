@@ -4,6 +4,8 @@ using Microsoft.Extensions.Options;
 using NailsStudio.Data;
 using NailsStudio.Models.Entities;
 using dotenv.net;
+using NailsStudio.Services.interfaces;
+using NailsStudio.Services.implementations;
 
 DotEnv.Load();
 
@@ -12,6 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException ("Connection string não encontrada");
 
 builder.Services.AddDbContext<DbContexto>(options => options.UseMySql (connectionString, ServerVersion.AutoDetect(connectionString)));
+builder.Services.AddScoped<IServicoService, ServicoServices>();
+
 
 builder.Services.AddIdentity<Usuario, IdentityRole>(options =>
 {
